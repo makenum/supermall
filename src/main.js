@@ -3,6 +3,8 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
+import "@/assets/fonts.css";
+
 // swiper
 import "swiper/dist/css/swiper.css";
 import VueAwesomeSwiper from "vue-awesome-swiper";

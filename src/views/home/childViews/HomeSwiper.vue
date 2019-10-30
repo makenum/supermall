@@ -1,6 +1,6 @@
 <template>
   <swiper v-if="banners.length > 0" :options="swiperOption">
-    <swiper-slide v-for="(banner, index) in banners" :key="index">
+    <swiper-slide v-for="banner in banners" :key="banner.acm">
       <a :href="banner.link">
         <img :src="banner.image" :alt="banner.title" />
       </a>

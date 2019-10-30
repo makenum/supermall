@@ -1,7 +1,7 @@
 <template>
   <li class="tabbar-item" @click="itemClick" :class="{ active: isActive }">
-    <div v-if="!isActive" class="icon"><slot name="icon"></slot></div>
-    <div v-else class="icon"><slot name="icon-active"></slot></div>
+    <div v-if="!isActive"><slot name="icon"></slot></div>
+    <div v-else><slot name="icon-active"></slot></div>
     <p><slot name="text"></slot></p>
   </li>
 </template>
@@ -37,15 +37,9 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  .icon {
-    width: 24px;
-    height: 24px;
-    margin-bottom: 2px;
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+  [class^="icon-"],
+  [class*=" icon-"] {
+    font-size: 24px;
   }
   &.active {
     color: @color-primary;

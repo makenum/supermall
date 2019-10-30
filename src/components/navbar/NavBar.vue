@@ -41,6 +41,7 @@ export default {
     flex: 1;
     .title {
       text-align: center;
+      font-size: 15px;
     }
   }
   &--primary {

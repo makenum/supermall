@@ -3,7 +3,7 @@
     <h3 class="title">{{ title }}</h3>
     <div class="popular-list">
       <a
-        :href="item.link"
+        href="https://act.mogujie.com/zzlx67"
         class="popular-list-item"
         v-for="item in popular"
         :key="item.iid"
