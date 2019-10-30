@@ -1,2 +1,12 @@
 @import "./base/var.less";
+@import "./base/mixins.less";
 @import "./base/reset.less";
+
+body {
+  background: @color-white;
+  color: @color-gray;
+  line-height: 1.2;
+}
+a {
+  .setTapColor();
+}

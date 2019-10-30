@@ -15,8 +15,9 @@ export default {
   props: {
     banners: {
       type: Array,
-      default: null,
-      required: true
+      default() {
+        return [];
+      }
     }
   },
   data() {
@@ -35,3 +36,13 @@ export default {
   }
 };
 </script>
+<style lang="less" scoped>
+.swiper-slide {
+  a {
+    display: block;
+    img {
+      width: 100%;
+    }
+  }
+}
+</style>

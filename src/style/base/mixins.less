@@ -1,0 +1,127 @@
+// 点击高亮颜色
+.setTapColor(@color:rgba(0,0,0,0)) {
+  -webkit-tap-highlight-color: @color;
+}
+
+// 文字溢出
+.ellipsis() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-wrap: normal;
+}
+
+.ellipsisLn(@line) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: @line;
+}
+
+// 表单提示文字
+.placeholder(@color: #999999) {
+  &::-webkit-input-placeholder {
+    color: @color;
+  }
+
+  &::-moz-placeholder {
+    color: @color;
+  }
+
+  &:-ms-input-placeholder {
+    color: @color;
+  }
+}
+
+// 文字溢出
+.ellipsis() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-wrap: normal;
+}
+
+.ellipsisLn(@line) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: @line;
+}
+
+// 0.5px线
+.setLineCommon {
+  content: " ";
+  pointer-events: none;
+  position: absolute;
+}
+
+.setTopLine(@color: #C7C7C7) {
+  .setLineCommon;
+  left: 0;
+  top: 0;
+  right: 0;
+  // prettier-ignore
+  height: 1PX;
+  // prettier-ignore
+  border-top: 1PX solid @color;
+  color: @color;
+  transform-origin: 0 0;
+  transform: scaleY(0.5);
+}
+
+.setBottomLine(@color: #C7C7C7) {
+  .setLineCommon;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  // prettier-ignore
+  height: 1PX;
+  // prettier-ignore
+  border-bottom: 1PX solid @color;
+  color: @color;
+  transform-origin: 0 100%;
+  transform: scaleY(0.5);
+}
+
+.setLeftLine(@color: #C7C7C7) {
+  .setLineCommon;
+  left: 0;
+  top: 0;
+  // prettier-ignore
+  width: 1PX;
+  bottom: 0;
+  // prettier-ignore
+  border-left: 1PX solid @color;
+  color: @color;
+  transform-origin: 0 0;
+  transform: scaleX(0.5);
+}
+
+.setRightLine(@color: #C7C7C7) {
+  .setLineCommon;
+  right: 0;
+  top: 0;
+  // prettier-ignore
+  width: 1PX;
+  bottom: 0;
+  // prettier-ignore
+  border-right: 1PX solid @color;
+  color: @color;
+  transform-origin: 100% 0;
+  transform: scaleX(0.5);
+}
+
+.setFullLine(@color: #C7C7C7,@r: 0) {
+  .setLineCommon;
+  left: 0;
+  top: 0;
+  border-radius: @r * 2;
+  width: 200%;
+  height: 200%;
+  transform: scale(0.5);
+  // prettier-ignore
+  border: 1PX solid @color;
+  transform-origin: 0 0;
+}
