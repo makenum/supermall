@@ -5,8 +5,8 @@
       <a
         href="https://act.mogujie.com/zzlx67"
         class="popular-list-item"
-        v-for="item in popular"
-        :key="item.iid"
+        v-for="(item, index) in popular"
+        :key="index"
       >
         <img :src="item.show.img" :alt="item.title" />
         <p class="text">{{ item.title }}</p>

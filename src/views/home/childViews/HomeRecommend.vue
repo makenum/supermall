@@ -31,7 +31,7 @@ export default {
   width: 100%;
   text-align: center;
   font-size: 12px;
-  padding: 10px 0 20px;
+  padding: 20px 0 20px;
   border-bottom: 10px solid @color-gutter;
   &-item {
     flex: 1;

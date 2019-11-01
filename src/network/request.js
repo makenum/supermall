@@ -2,24 +2,27 @@ import axios from "axios";
 export function request(config) {
   const instance = axios.create({
     baseURL: "http://106.54.54.237:8000/api/v1/",
+    // baseURL: "http://123.207.32.32:8000/api/vip",
     timeout: 5000
   });
   // 请求拦截的作用
-  axios.interceptors.request.use(
+  instance.interceptors.request.use(
     config => {
       return config;
     },
     error => {
-      return Promise.reject(error);
+      // return Promise.reject(error);
+      console.log(error);
     }
   );
   // 响应拦截
-  axios.interceptors.response.use(
-    response => {
-      return response;
+  instance.interceptors.response.use(
+    res => {
+      return res.data;
     },
-    error => {
-      return Promise.reject(error);
+    err => {
+      // return Promise.reject(error);
+      console.log(err);
     }
   );
   // 发送真正的网络请求
