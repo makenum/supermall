@@ -6,7 +6,9 @@
       v-for="(item, index) in recommends"
       :key="index"
     >
-      <img :src="item.image" alt="" />
+      <div class="thumb">
+        <img :src="item.image" alt="item.title" />
+      </div>
       <p class="title">{{ item.title }}</p>
     </a>
   </div>
@@ -27,19 +29,25 @@ export default {
 </script>
 <style lang="less" scoped>
 .recommend {
+  background-color: @color-white;
   display: flex;
   width: 100%;
   text-align: center;
   font-size: 12px;
   padding: 20px 0 20px;
-  border-bottom: 10px solid @color-gutter;
+  margin-bottom: 10px;
   &-item {
     flex: 1;
     color: @color-med-gray;
-    img {
+    .thumb {
       width: 70px;
       height: 70px;
-      margin-bottom: 10px;
+      margin: 0 auto 10px;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
     }
   }
 }

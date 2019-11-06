@@ -11,31 +11,32 @@ const routes = [
   {
     path: "/home",
     name: "home",
-    component: () => import(/* webpackChunkName: "home" */ "views/home/Home")
+    component: () => import(/* webpackChunkName: "home" */ "@/views/home/Home")
   },
   {
     path: "/category",
     name: "category",
     component: () =>
-      import(/* webpackChunkName: "category" */ "views/category/Category")
+      import(/* webpackChunkName: "category" */ "@/views/category/Category")
   },
   {
     path: "/shopcart",
     name: "shopcart",
     component: () =>
-      import(/* webpackChunkName: "shopcart" */ "views/shopcart/ShopCart.vue")
+      import(/* webpackChunkName: "shopcart" */ "@/views/shopcart/ShopCart.vue")
   },
   {
     path: "/profile",
     name: "profile",
     component: () =>
-      import(/* webpackChunkName: "profile" */ "views/profile/Profile.vue")
+      import(/* webpackChunkName: "profile" */ "@/views/profile/Profile.vue")
   },
   {
-    path: "/detail",
+    path: "/detail/:iid",
     name: "detail",
     component: () =>
-      import(/* webpackChunkName: "detail" */ "views/detail/Detail.vue")
+      import(/* webpackChunkName: "detail" */ "@/views/detail/Detail.vue"),
+    meta: { hideTabBar: true }
   }
 ];
 

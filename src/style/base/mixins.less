@@ -57,63 +57,55 @@
   position: absolute;
 }
 
-.setTopLine(@color: #C7C7C7) {
+.setTopLine(@color: #eeeeee) {
   .setLineCommon;
   left: 0;
   top: 0;
   right: 0;
-  // prettier-ignore
-  height: 1PX;
-  // prettier-ignore
-  border-top: 1PX solid @color;
+  height: 1px;
+  border-top: 1px solid @color;
   color: @color;
   transform-origin: 0 0;
   transform: scaleY(0.5);
 }
 
-.setBottomLine(@color: #C7C7C7) {
+.setBottomLine(@color: #eeeeee) {
   .setLineCommon;
   left: 0;
   bottom: 0;
   right: 0;
-  // prettier-ignore
-  height: 1PX;
-  // prettier-ignore
-  border-bottom: 1PX solid @color;
+  height: 1px;
+  border-bottom: 1px solid @color;
   color: @color;
   transform-origin: 0 100%;
   transform: scaleY(0.5);
 }
 
-.setLeftLine(@color: #C7C7C7) {
+.setLeftLine(@color: #eeeeee) {
   .setLineCommon;
   left: 0;
   top: 0;
-  // prettier-ignore
-  width: 1PX;
+  width: 1px;
   bottom: 0;
-  // prettier-ignore
-  border-left: 1PX solid @color;
+  border-left: 1px solid @color;
   color: @color;
   transform-origin: 0 0;
   transform: scaleX(0.5);
 }
 
-.setRightLine(@color: #C7C7C7) {
+.setRightLine(@color: #eeeeee) {
   .setLineCommon;
   right: 0;
   top: 0;
-  // prettier-ignore
-  width: 1PX;
+  width: 1px;
   bottom: 0;
-  // prettier-ignore
-  border-right: 1PX solid @color;
+  border-right: 1px solid @color;
   color: @color;
   transform-origin: 100% 0;
   transform: scaleX(0.5);
 }
 
-.setFullLine(@color: #C7C7C7,@r: 0) {
+.setFullLine(@color: #eeeeee,@r: 0) {
   .setLineCommon;
   left: 0;
   top: 0;
@@ -121,7 +113,6 @@
   width: 200%;
   height: 200%;
   transform: scale(0.5);
-  // prettier-ignore
-  border: 1PX solid @color;
+  border: 1px solid @color;
   transform-origin: 0 0;
 }

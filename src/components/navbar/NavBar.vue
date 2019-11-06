@@ -35,7 +35,7 @@ export default {
   line-height: 44px;
   &__left,
   &__right {
-    width: 60px;
+    width: 25%;
   }
   &__center {
     flex: 1;
@@ -43,6 +43,16 @@ export default {
       text-align: center;
       font-size: 15px;
     }
+  }
+  .back {
+    width: 44px;
+    height: 44px;
+    background-color: transparent;
+    font-size: 20px;
+  }
+  &--default {
+    background-color: @color-white;
+    color: @color-gray;
   }
   &--primary {
     background-color: @color-primary;

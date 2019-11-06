@@ -2,12 +2,11 @@
 @import "./base/mixins.less";
 @import "./base/rem.less";
 @import "./base/reset.less";
-
 body {
-  background: @color-white;
+  background: @bg-default;
   color: @color-gray;
-  line-height: 1.2;
-  font-size: 14px;
+  line-height: @default-line-height;
+  font-size: @default-font-size;
 }
 a {
   .setTapColor();

@@ -1,7 +1,7 @@
 <template>
-  <div class="goods-item">
+  <div class="goods-item" @click="itemClick">
     <div class="img">
-      <img v-lazy="goodsItem.show.img" />
+      <img :src="goodsItem.show.img" @load="load" />
     </div>
     <div class="goods-info">
       <p>{{ goodsItem.title }}</p>
@@ -18,7 +18,7 @@ export default {
   name: "GoodsListItem",
   data() {
     return {
-      imgUrl: require("assets/img/loading.svg")
+      imgUrl: require("@/assets/img/loading.svg")
     };
   },
   props: {
@@ -27,6 +27,14 @@ export default {
       default() {
         return {};
       }
+    }
+  },
+  methods: {
+    itemClick() {
+      this.$router.push(`/detail/${this.goodsItem.iid}`);
+    },
+    load() {
+      this.$EventBus.$emit("imageLoad");
     }
   }
 };
@@ -38,6 +46,15 @@ export default {
     width: 100%;
     padding-bottom: percentage(480/320);
     position: relative;
+    img {
+      border-radius: 5px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
     img[lazy="loaded"] {
       border-radius: 5px;
       position: absolute;

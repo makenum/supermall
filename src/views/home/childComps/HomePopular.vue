@@ -8,7 +8,9 @@
         v-for="(item, index) in popular"
         :key="index"
       >
-        <img :src="item.show.img" :alt="item.title" />
+        <div class="thumb">
+          <img :src="item.show.img" :alt="item.title" />
+        </div>
         <p class="text">{{ item.title }}</p>
       </a>
     </div>
@@ -32,7 +34,7 @@ export default {
   }
 };
 </script>
-<style lang="less">
+<style lang="less" scoped>
 .popular {
   background-color: @color-white;
   padding-top: 15px;
@@ -50,12 +52,16 @@ export default {
       margin: 10px 0;
       text-align: center;
       padding: 0 10px;
-      img {
+      .thumb {
         width: 70px;
         height: 70px;
-        border-radius: 50%;
-        object-fit: cover;
-        margin-bottom: 5px;
+        margin: 0 auto 5px;
+        img {
+          border-radius: 50%;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
       }
       .text {
         font-size: 12px;

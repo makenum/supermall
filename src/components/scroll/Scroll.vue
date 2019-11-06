@@ -1,6 +1,8 @@
 <template>
   <div ref="wrapper">
-    <slot></slot>
+    <div class="content">
+      <slot></slot>
+    </div>
   </div>
 </template>
 
@@ -98,9 +100,6 @@ export default {
     setTimeout(() => {
       this._initScroll();
     }, 20);
-    // this.$nextTick(() => {
-    //   this._initScroll();
-    // });
   },
   methods: {
     _initScroll() {

@@ -19,17 +19,15 @@
       @scroll="onScroll"
       @pullingUp="onPullingUp"
     >
-      <div class="content">
-        <home-swiper :banners="banners"></home-swiper>
-        <home-recommend :recommends="recommends"></home-recommend>
-        <home-popular :popular="popular" title="本周流行"></home-popular>
-        <tab-control
-          :titles="tabTitles"
-          @tabClick="tabClick"
-          ref="tabControl1"
-        ></tab-control>
-        <goods-list :goods="showGoods"></goods-list>
-      </div>
+      <home-swiper :banners="banners"></home-swiper>
+      <home-recommend :recommends="recommends"></home-recommend>
+      <home-popular :popular="popular" title="本周流行"></home-popular>
+      <tab-control
+        :titles="tabTitles"
+        @tabClick="tabClick"
+        ref="tabControl1"
+      ></tab-control>
+      <goods-list :goods="showGoods"></goods-list>
     </scroll>
     <!-- 组件必须带事件修饰符 -->
     <back-top v-if="isShowBackTop" @click.native="backTopClick"></back-top>
@@ -37,22 +35,22 @@
 </template>
 
 <script>
-import { debounce } from "common/utils";
+import { debounce } from "@/common/utils";
 import {
   getHomeMultidata,
   getHomePopularData,
   getHomeGoods
-} from "network/home";
+} from "@/network/home";
 
-import NavBar from "components/navbar/NavBar";
-import TabControl from "components/tabControl/TabControl";
-import GoodsList from "components/goods/GoodsList";
-import BackTop from "components/backTop/BackTop";
-import Scroll from "components/scroll/Scroll";
+import NavBar from "@/components/navbar/NavBar.vue";
+import TabControl from "@/components/tabControl/TabControl.vue";
+import GoodsList from "@/components/goods/GoodsList.vue";
+import BackTop from "@/components/backTop/BackTop.vue";
+import Scroll from "@/components/scroll/Scroll.vue";
 
-import HomeSwiper from "./childViews/HomeSwiper";
-import HomeRecommend from "./childViews/HomeRecommend";
-import HomePopular from "./childViews/HomePopular";
+import HomeSwiper from "./childComps/HomeSwiper.vue";
+import HomeRecommend from "./childComps/HomeRecommend.vue";
+import HomePopular from "./childComps/HomePopular.vue";
 
 export default {
   name: "Home",
@@ -109,14 +107,21 @@ export default {
     this._getHomeGoods("sell");
   },
   mounted() {
-    const refresh = debounce(this.$refs.scroll.refresh, 50);
-    this.$Lazyload.$on("loaded", () => {
+    // 等待图片加载完刷新scroll
+    const refresh = debounce(this.$refs.scroll.refresh, 20);
+    this.$EventBus.$on("imageLoad", () => {
       refresh();
     });
   },
   updated() {
     this.tabControlOffsetTop = this.$refs.tabControl1.$el.offsetTop;
   },
+  // activated() {
+  //   console.log("组件已激活");
+  // },
+  // deactivated() {
+  //   console.log("组件未激活");
+  // },
   methods: {
     // 点击切换
     tabClick(index) {
@@ -175,12 +180,13 @@ export default {
   }
 };
 </script>
-<style lang="less">
+<style lang="less" scoped>
 .home {
   height: 100vh;
   position: relative;
-  .swiper-pagination-bullet-active {
-    background: @color-primary;
+  .goods {
+    padding-top: 5px;
+    background-color: @color-white;
   }
   .sticky-tab-control {
     position: relative;
