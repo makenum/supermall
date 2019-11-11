@@ -99,9 +99,11 @@ export default {
     }
   },
   created() {
+    // 请求多个数据
     this._getHomeMultidata();
+    // 请求流行数据
     this._getHomePopularData();
-
+    // 请求商品数据
     this._getHomeGoods("pop");
     this._getHomeGoods("new");
     this._getHomeGoods("sell");

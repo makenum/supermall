@@ -18,7 +18,7 @@
     </table>
 
     <div class="info-img" v-if="paramInfo.image.length !== 0">
-      <img :src="paramInfo.image" alt="" />
+      <img :src="paramInfo.image" />
     </div>
   </div>
 </template>
@@ -45,15 +45,14 @@ export default {
 }
 
 .param-info table {
+  border: none;
   width: 100%;
   border-collapse: collapse;
-}
-
-.param-info table tr {
-  height: 42px;
+  font-size: 13px;
 }
 
 .param-info table tr td {
+  padding: 10px 0;
   border-bottom: 1px solid rgba(100, 100, 100, 0.1);
 }
 

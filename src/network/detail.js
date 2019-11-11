@@ -8,6 +8,9 @@ export function getDetail(iid) {
     }
   });
 }
+export function getRecommend() {
+  return request("/recommend");
+}
 
 export class Goods {
   constructor(itemInfo, columns, services) {

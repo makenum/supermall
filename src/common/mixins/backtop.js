@@ -1,4 +1,4 @@
-const backTop = {
+export const backTop = {
   methods: {
     foo: function() {
       console.log("foo");
@@ -8,5 +8,3 @@ const backTop = {
     }
   }
 };
-
-export default backTop;
