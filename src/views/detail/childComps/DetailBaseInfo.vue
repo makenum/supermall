@@ -1,18 +1,20 @@
 <template>
-  <div class="base-info" v-if="Object.keys(goods).length !== 0">
-    <h3 class="base-info__title">{{ goods.title }}</h3>
+  <div class="base-info" v-if="Object.keys(baseInfo).length !== 0">
+    <h3 class="base-info__title">{{ baseInfo.title }}</h3>
     <div class="base-info__price">
-      <span class="new">{{ goods.newPrice }}</span>
-      <span class="old">{{ goods.oldPrice }}</span>
-      <span class="discount" v-if="goods.discount">{{ goods.discount }}</span>
+      <span class="new">{{ baseInfo.newPrice }}</span>
+      <span class="old">{{ baseInfo.oldPrice }}</span>
+      <span class="discount" v-if="baseInfo.discount">{{
+        baseInfo.discount
+      }}</span>
     </div>
     <div class="base-info__other">
-      <span v-for="(column, index) in goods.columns" :key="index">{{
+      <span v-for="(column, index) in baseInfo.columns" :key="index">{{
         column
       }}</span>
     </div>
     <div class="base-info__service">
-      <div class="item" v-for="(item, index) in goods.services" :key="index">
+      <div class="item" v-for="(item, index) in baseInfo.services" :key="index">
         <img :src="defaultIcon" />
         <span>{{ item.name }}</span>
       </div>
@@ -23,7 +25,7 @@
 export default {
   name: "DetailBaseInfo",
   props: {
-    goods: {
+    baseInfo: {
       type: Object,
       default() {
         return {};

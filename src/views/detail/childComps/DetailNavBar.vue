@@ -33,7 +33,7 @@ export default {
   methods: {
     menuClick(index) {
       this.currentIndex = index;
-      console.log(this.menu[index]);
+      this.$emit("tabClick", index);
     },
     backClick() {
       this.$router.back();

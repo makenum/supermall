@@ -4,7 +4,7 @@
       v-for="(item, index) in goods"
       :key="index"
       :goodsItem="item"
-    ></goods-list-item>
+    />
   </div>
 </template>
 
@@ -27,6 +27,7 @@ export default {
 </script>
 <style lang="less">
 .goods {
+  background-color: #fff;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;

@@ -1,7 +1,7 @@
 <template>
   <div class="goods-item" @click="itemClick">
     <div class="img">
-      <img :src="goodsItem.show.img" @load="load" />
+      <img :src="showImage" @load="load" />
     </div>
     <div class="goods-info">
       <p>{{ goodsItem.title }}</p>
@@ -16,11 +16,6 @@
 <script>
 export default {
   name: "GoodsListItem",
-  data() {
-    return {
-      imgUrl: require("@/assets/img/loading.svg")
-    };
-  },
   props: {
     goodsItem: {
       type: Object,
@@ -29,9 +24,19 @@ export default {
       }
     }
   },
+  computed: {
+    showImage() {
+      return this.goodsItem.image || this.goodsItem.show.img;
+    }
+  },
   methods: {
     itemClick() {
-      this.$router.push(`/detail/${this.goodsItem.iid}`);
+      if (this.goodsItem.iid) {
+        this.$router.push(`/detail/${this.goodsItem.iid}`);
+      }
+      if (this.goodsItem.item_id) {
+        console.log("被点击了");
+      }
     },
     load() {
       this.$EventBus.$emit("imageLoad");

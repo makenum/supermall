@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { debounce } from "@/common/utils";
+import { imageLoadListenerMixin, backTopMixin } from "@/common/mixins";
 import {
   getHomeMultidata,
   getHomePopularData,
@@ -45,7 +45,7 @@ import {
 import NavBar from "@/components/navbar/NavBar.vue";
 import TabControl from "@/components/tabControl/TabControl.vue";
 import GoodsList from "@/components/goods/GoodsList.vue";
-import BackTop from "@/components/backTop/BackTop.vue";
+
 import Scroll from "@/components/scroll/Scroll.vue";
 
 import HomeSwiper from "./childComps/HomeSwiper.vue";
@@ -54,11 +54,11 @@ import HomePopular from "./childComps/HomePopular.vue";
 
 export default {
   name: "Home",
+  mixins: [imageLoadListenerMixin, backTopMixin],
   components: {
     NavBar,
     TabControl,
     Scroll,
-    BackTop,
     GoodsList,
     HomeSwiper,
     HomeRecommend,
@@ -66,13 +66,12 @@ export default {
   },
   data() {
     return {
+      listenScroll: true,
+      probeType: 3,
       tabTitles: ["流行", "新款", "精选"],
       tabCurrentIndex: 0,
       tabControlOffsetTop: 0,
       isTabFixed: false,
-      isShowBackTop: false,
-      listenScroll: true,
-      probeType: 3,
       banners: [],
       recommends: [],
       popular: [],
@@ -108,22 +107,6 @@ export default {
     this._getHomeGoods("new");
     this._getHomeGoods("sell");
   },
-  mounted() {
-    // 等待图片加载完刷新scroll
-    const refresh = debounce(this.$refs.scroll.refresh, 20);
-    this.$EventBus.$on("imageLoad", () => {
-      refresh();
-    });
-  },
-  updated() {
-    this.tabControlOffsetTop = this.$refs.tabControl1.$el.offsetTop;
-  },
-  // activated() {
-  //   console.log("组件已激活");
-  // },
-  // deactivated() {
-  //   console.log("组件未激活");
-  // },
   methods: {
     // 点击切换
     tabClick(index) {
@@ -165,6 +148,9 @@ export default {
         this.goods[type].list.push(...res.data.list);
         this.goods[type].page += 1;
         this.$refs.scroll.finishPullUp();
+        this.$nextTick(() => {
+          this.tabControlOffsetTop = this.$refs.tabControl1.$el.offsetTop;
+        });
       });
     },
     // bscroll滚动事件
@@ -175,9 +161,6 @@ export default {
     },
     onPullingUp() {
       this._getHomeGoods(this.currentType);
-    },
-    backTopClick() {
-      this.$refs.scroll.scrollTo(0, 0, 500);
     }
   }
 };
@@ -201,6 +184,9 @@ export default {
     right: 0;
     bottom: 49px;
     overflow: hidden;
+  }
+  .back-top {
+    bottom: 55px;
   }
 }
 </style>

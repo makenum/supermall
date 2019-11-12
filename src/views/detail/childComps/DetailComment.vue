@@ -42,7 +42,7 @@ export default {
       // 将时间戳转为Date对象
       const date = new Date(value * 1000); //如果date为13位不需要乘1000
       // 将date进行格式化
-      return formatDate(date, "yyyy/MM/dd hh:mm:ss");
+      return formatDate(date, "yyyy-MM-dd hh:mm:ss");
     },
     _formatDate(value) {
       // 将时间戳转为Date对象
@@ -65,7 +65,6 @@ export default {
 <style lang="less">
 .comment-info {
   padding: 5px 12px;
-  margin-bottom: 5px;
   background-color: #fff;
   .info-header {
     display: flex;

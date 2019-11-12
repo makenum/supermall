@@ -1,19 +1,32 @@
 <template>
   <div class="detail">
-    <detail-nav-bar></detail-nav-bar>
-    <scroll ref="scroll" class="wrapper" :probeType="3">
+    <detail-nav-bar @tabClick="onTabClick" ref="navbar" />
+    <scroll
+      ref="scroll"
+      class="wrapper"
+      @scroll="onScroll"
+      :probeType="probeType"
+      :listenScroll="listenScroll"
+    >
       <detail-swiper :topImages="topImages" />
-      <detail-base-info :goods="goods" />
+      <detail-base-info :baseInfo="baseInfo" />
       <detail-shop-info :shop="shop" />
-      <detail-goods-info :detailInfo="detailInfo" @imageLoaded="imageLoaded" />
-      <detail-param-info :paramInfo="paramInfo" />
-      <detail-comment :commentInfo="commentInfo" />
+      <detail-goods-info
+        :detailInfo="detailInfo"
+        @imageLoaded="imageLoaded"
+        ref="goods"
+      />
+      <detail-param-info :paramInfo="paramInfo" ref="param" />
+      <detail-comment :commentInfo="commentInfo" ref="comment" />
+      <goods-list :goods="recommend" ref="recommend" />
     </scroll>
+    <!-- 组件必须带事件修饰符 -->
+    <back-top v-if="isShowBackTop" @click.native="backTopClick"></back-top>
   </div>
 </template>
 
 <script>
-import { backTop } from "@/common/mixins/backtop";
+import { imageLoadListenerMixin, backTopMixin } from "@/common/mixins";
 import {
   getDetail,
   getRecommend,
@@ -30,9 +43,11 @@ import DetailShopInfo from "./childComps/DetailShopInfo.vue";
 import DetailGoodsInfo from "./childComps/DetailGoodsInfo.vue";
 import DetailParamInfo from "./childComps/DetailParamInfo.vue";
 import DetailComment from "./childComps/DetailComment.vue";
+import GoodsList from "@/components/goods/GoodsList.vue";
+
 export default {
   name: "Detail",
-  mixins: [backTop],
+  mixins: [imageLoadListenerMixin, backTopMixin],
   components: {
     Scroll,
     DetailNavBar,
@@ -41,17 +56,22 @@ export default {
     DetailShopInfo,
     DetailGoodsInfo,
     DetailParamInfo,
-    DetailComment
+    DetailComment,
+    GoodsList
   },
   data() {
     return {
+      listenScroll: true,
+      probeType: 3,
       iid: null,
       topImages: [],
-      goods: {},
+      baseInfo: {},
       shop: {},
       detailInfo: {},
       paramInfo: {},
-      commentInfo: {}
+      commentInfo: {},
+      recommend: [],
+      calcScrollHeight: []
     };
   },
   created() {
@@ -62,16 +82,14 @@ export default {
     this._getDetail();
 
     // 请求推荐数据
-
     this._getRecommend();
   },
+  destroyed() {
+    this.$EventBus.$off("imageLoad", this.imageLoadListner);
+  },
   methods: {
-    imageLoaded() {
-      this.$refs.scroll.refresh();
-    },
     _getDetail() {
       getDetail(this.iid).then(res => {
-        console.log(res);
         const data = res.result;
         this.topImages = data.itemInfo.topImages;
         this.goods = new Goods(
@@ -90,8 +108,31 @@ export default {
     },
     _getRecommend() {
       getRecommend().then(res => {
-        console.log(res);
+        this.recommend = res.data.list;
       });
+    },
+    onTabClick(index) {
+      this.$refs.scroll.scrollTo(0, -this.calcScrollHeight[index], 200);
+    },
+    imageLoaded() {
+      this.$refs.scroll.refresh();
+      this.$nextTick(() => {
+        this.calcScrollHeight.push(0);
+        this.calcScrollHeight.push(this.$refs.param.$el.offsetTop);
+        this.calcScrollHeight.push(this.$refs.comment.$el.offsetTop);
+        this.calcScrollHeight.push(this.$refs.recommend.$el.offsetTop);
+        // console.log(this.calcScrollHeight);
+      });
+    },
+    onScroll(pos) {
+      let y = Math.abs(pos.y);
+      this.isShowBackTop = y >= 500;
+      for (let i = 0; i++; i < this.calcScrollHeight.length) {
+        // if (this.calcScrollHeight[i] === y) {
+        //   console.log(i);
+        //   this.$refs.navbar.currentIndex = i;
+        // }
+      }
     }
   }
 };
@@ -100,6 +141,9 @@ export default {
 .detail {
   height: 100vh;
   position: relative;
+  .back-top {
+    bottom: 8px;
+  }
   .wrapper {
     z-index: 10;
     position: absolute;
