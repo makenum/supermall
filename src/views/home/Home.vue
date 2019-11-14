@@ -155,9 +155,9 @@ export default {
     },
     // bscroll滚动事件
     onScroll(pos) {
-      let y = Math.abs(pos.y);
-      this.isShowBackTop = y >= 500;
-      this.isTabFixed = y >= this.tabControlOffsetTop;
+      let posY = Math.abs(pos.y);
+      this.isShowBackTop = posY >= 500;
+      this.isTabFixed = posY >= this.tabControlOffsetTop;
     },
     onPullingUp() {
       this._getHomeGoods(this.currentType);

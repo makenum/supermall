@@ -4,13 +4,14 @@ import BackTop from "@/components/backTop/BackTop.vue";
 export const imageLoadListenerMixin = {
   data() {
     return {
-      imageLoadListner: null
+      imageLoadListner: null,
+      newRefresh: null
     };
   },
   mounted() {
-    let refresh = debounce(this.$refs.scroll.refresh, 100);
+    this.newRefresh = debounce(this.$refs.scroll.refresh, 50);
     this.imageLoadListner = () => {
-      refresh();
+      this.newRefresh();
     };
     this.$EventBus.$on("imageLoad", this.imageLoadListner);
   }

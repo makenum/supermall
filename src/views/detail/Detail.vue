@@ -20,6 +20,7 @@
       <detail-comment :commentInfo="commentInfo" ref="comment" />
       <goods-list :goods="recommend" ref="recommend" />
     </scroll>
+    <detail-footer-bar></detail-footer-bar>
     <!-- 组件必须带事件修饰符 -->
     <back-top v-if="isShowBackTop" @click.native="backTopClick"></back-top>
   </div>
@@ -35,6 +36,7 @@ import {
   GoodsParam
 } from "@/network/detail";
 import Scroll from "@/components/scroll/Scroll.vue";
+import GoodsList from "@/components/goods/GoodsList.vue";
 
 import DetailNavBar from "./childComps/DetailNavBar.vue";
 import DetailSwiper from "./childComps/DetailSwiper.vue";
@@ -43,13 +45,14 @@ import DetailShopInfo from "./childComps/DetailShopInfo.vue";
 import DetailGoodsInfo from "./childComps/DetailGoodsInfo.vue";
 import DetailParamInfo from "./childComps/DetailParamInfo.vue";
 import DetailComment from "./childComps/DetailComment.vue";
-import GoodsList from "@/components/goods/GoodsList.vue";
+import DetailFooterBar from "./childComps/DetailFooterBar.vue";
 
 export default {
   name: "Detail",
   mixins: [imageLoadListenerMixin, backTopMixin],
   components: {
     Scroll,
+    GoodsList,
     DetailNavBar,
     DetailSwiper,
     DetailBaseInfo,
@@ -57,7 +60,7 @@ export default {
     DetailGoodsInfo,
     DetailParamInfo,
     DetailComment,
-    GoodsList
+    DetailFooterBar
   },
   data() {
     return {
@@ -71,16 +74,15 @@ export default {
       paramInfo: {},
       commentInfo: {},
       recommend: [],
-      calcScrollHeight: []
+      calcScrollY: [],
+      currentIndex: 0
     };
   },
   created() {
     // 获取iid
     this.iid = this.$route.params.iid;
-
     // 请求详情页数据
     this._getDetail();
-
     // 请求推荐数据
     this._getRecommend();
   },
@@ -90,6 +92,7 @@ export default {
   methods: {
     _getDetail() {
       getDetail(this.iid).then(res => {
+        console.log(res);
         const data = res.result;
         this.topImages = data.itemInfo.topImages;
         this.goods = new Goods(
@@ -103,7 +106,9 @@ export default {
           data.itemParams.info,
           data.itemParams.rule
         );
-        this.commentInfo = data.rate.list[0];
+        if (data.rate.list) {
+          this.commentInfo = data.rate.list[0];
+        }
       });
     },
     _getRecommend() {
@@ -112,26 +117,32 @@ export default {
       });
     },
     onTabClick(index) {
-      this.$refs.scroll.scrollTo(0, -this.calcScrollHeight[index], 200);
+      this.$refs.scroll.scrollTo(0, -this.calcScrollY[index], 200);
     },
     imageLoaded() {
-      this.$refs.scroll.refresh();
-      this.$nextTick(() => {
-        this.calcScrollHeight.push(0);
-        this.calcScrollHeight.push(this.$refs.param.$el.offsetTop);
-        this.calcScrollHeight.push(this.$refs.comment.$el.offsetTop);
-        this.calcScrollHeight.push(this.$refs.recommend.$el.offsetTop);
-        // console.log(this.calcScrollHeight);
-      });
+      this.newRefresh();
+      // this.$refs.scroll.refresh();
+      this.calcScrollY.push(0);
+      this.calcScrollY.push(this.$refs.param.$el.offsetTop);
+      this.calcScrollY.push(this.$refs.comment.$el.offsetTop);
+      this.calcScrollY.push(this.$refs.recommend.$el.offsetTop);
+      // 添加一个最大数字
+      this.calcScrollY.push(Number.MAX_VALUE);
+      console.log(this.calcScrollY);
     },
     onScroll(pos) {
-      let y = Math.abs(pos.y);
-      this.isShowBackTop = y >= 500;
-      for (let i = 0; i++; i < this.calcScrollHeight.length) {
-        // if (this.calcScrollHeight[i] === y) {
-        //   console.log(i);
-        //   this.$refs.navbar.currentIndex = i;
-        // }
+      let posY = Math.abs(pos.y);
+      this.isShowBackTop = posY >= 500;
+      // 计算高度
+      let length = this.calcScrollY.length - 1;
+      for (let i = 0; i < length; i++) {
+        if (
+          this.currentIndex !== i &&
+          (posY >= this.calcScrollY[i] && posY < this.calcScrollY[i + 1])
+        ) {
+          this.currentIndex = i;
+          this.$refs.navbar.currentIndex = this.currentIndex;
+        }
       }
     }
   }
@@ -141,17 +152,19 @@ export default {
 .detail {
   height: 100vh;
   position: relative;
+  .navbar {
+    position: relative;
+    z-index: 10;
+  }
   .back-top {
-    bottom: 8px;
+    bottom: 55px;
   }
   .wrapper {
-    z-index: 10;
     position: absolute;
     top: 44px;
     left: 0;
     right: 0;
-    bottom: 0;
-    overflow: hidden;
+    bottom: 49px;
   }
 }
 </style>

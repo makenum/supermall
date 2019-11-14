@@ -1,26 +1,32 @@
 <template>
-  <div class="comment-info" v-if="Object.keys(commentInfo).length !== 0">
-    <div class="info-header">
-      <div class="title">用户评价</div>
-      <div class="more">更多<i class="icon-arrow-left"></i></div>
-    </div>
-    <div class="info-user">
-      <img :src="commentInfo.user.avatar" />
-      <span>{{ commentInfo.user.uname }}</span>
-    </div>
-    <div class="info-detail">
-      <p>{{ commentInfo.content }}</p>
-      <div class="info-other">
-        <span class="date">{{ commentInfo.created | showDate }}</span>
-        <span>{{ commentInfo.style }}</span>
+  <div>
+    <div class="comment-info" v-if="Object.keys(commentInfo).length !== 0">
+      <div class="info-header">
+        <div class="title">用户评价</div>
+        <div class="more">更多<i class="icon-arrow-left"></i></div>
       </div>
-      <div class="info-imgs" v-if="commentInfo.images">
-        <img
-          :src="item"
-          v-for="(item, index) in commentInfo.images"
-          :key="index"
-        />
+      <div class="info-user">
+        <img :src="commentInfo.user.avatar" />
+        <span>{{ commentInfo.user.uname }}</span>
       </div>
+      <div class="info-detail">
+        <p>{{ commentInfo.content }}</p>
+        <div class="info-other">
+          <span class="date">{{ commentInfo.created | showDate }}</span>
+          <span>{{ commentInfo.style }}</span>
+        </div>
+        <div class="info-imgs" v-if="commentInfo.images">
+          <img
+            :src="item"
+            v-for="(item, index) in commentInfo.images"
+            :key="index"
+          />
+        </div>
+      </div>
+    </div>
+    <div v-else class="comment-error">
+      <h3>暂无评论</h3>
+      <p>快来抢沙发吧！</p>
     </div>
   </div>
 </template>
@@ -63,6 +69,18 @@ export default {
 };
 </script>
 <style lang="less">
+.comment-error {
+  padding: 15px 12px 10px;
+  background-color: #fff;
+  line-height: 1.5;
+  h3 {
+    font-size: 16px;
+  }
+  p {
+    color: @color-deep-gray;
+    font-size: 12px;
+  }
+}
 .comment-info {
   padding: 5px 12px;
   background-color: #fff;
