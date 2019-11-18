@@ -10,7 +10,7 @@
       <i slot="icon-active" class="icon-category_active"></i>
       <span slot="text">分类</span>
     </tab-bar-item>
-    <tab-bar-item path="/shopcart">
+    <tab-bar-item path="/cart">
       <i slot="icon" class="icon-shopcart"></i>
       <i slot="icon-active" class="icon-shopcart_active"></i>
       <span slot="text">购物车</span>
@@ -41,6 +41,8 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-  box-shadow: 0 -1px 1px rgba(100, 100, 100, 0.2);
+  &:before {
+    .setTopLine(@color-light-gray);
+  }
 }
 </style>

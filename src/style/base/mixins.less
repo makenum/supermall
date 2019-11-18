@@ -57,7 +57,7 @@
   position: absolute;
 }
 
-.setTopLine(@color: #eeeeee) {
+.setTopLine(@color: #e5e5e5) {
   .setLineCommon;
   left: 0;
   top: 0;
@@ -68,7 +68,7 @@
   transform: scaleY(0.5);
 }
 
-.setBottomLine(@color: #eeeeee) {
+.setBottomLine(@color: #e5e5e5) {
   .setLineCommon;
   left: 0;
   bottom: 0;
@@ -79,7 +79,7 @@
   transform: scaleY(0.5);
 }
 
-.setLeftLine(@color: #eeeeee) {
+.setLeftLine(@color: #e5e5e5) {
   .setLineCommon;
   left: 0;
   top: 0;
@@ -90,7 +90,7 @@
   transform: scaleX(0.5);
 }
 
-.setRightLine(@color: #eeeeee) {
+.setRightLine(@color: #e5e5e5) {
   .setLineCommon;
   right: 0;
   top: 0;
@@ -101,7 +101,7 @@
   transform: scaleX(0.5);
 }
 
-.setFullLine(@color: #eeeeee,@r: 0) {
+.setFullLine(@color: #e5e5e5,@r: 0) {
   .setLineCommon;
   left: 0;
   top: 0;
@@ -111,4 +111,10 @@
   transform: scale(0.5);
   border: 1px solid @color;
   transform-origin: 0 0;
+}
+
+.flexGrow {
+  width: 0;
+  min-width: 0;
+  flex-grow: 1;
 }

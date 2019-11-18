@@ -1,6 +1,6 @@
 # supermall
 
-vue 高仿蘑菇街移动端
+vue 高仿蘑菇街移动端App
 
 ## Project setup
 

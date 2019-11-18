@@ -20,7 +20,7 @@
       <detail-comment :commentInfo="commentInfo" ref="comment" />
       <goods-list :goods="recommend" ref="recommend" />
     </scroll>
-    <detail-footer-bar></detail-footer-bar>
+    <detail-footer-bar @addCart="addCart"></detail-footer-bar>
     <!-- 组件必须带事件修饰符 -->
     <back-top v-if="isShowBackTop" @click.native="backTopClick"></back-top>
   </div>
@@ -95,7 +95,7 @@ export default {
         console.log(res);
         const data = res.result;
         this.topImages = data.itemInfo.topImages;
-        this.goods = new Goods(
+        this.baseInfo = new Goods(
           data.itemInfo,
           data.columns,
           data.shopInfo.services
@@ -144,6 +144,17 @@ export default {
           this.$refs.navbar.currentIndex = this.currentIndex;
         }
       }
+    },
+    addCart() {
+      //获取购物车需要展示的信息
+      const product = {};
+      product.image = this.topImages[0];
+      product.title = this.baseInfo.title;
+      product.desc = this.baseInfo.desc;
+      product.realPrice = this.baseInfo.realPrice;
+      product.iid = this.iid;
+      // 将商品添加到购物车
+      this.$store.dispatch("addCart", product);
     }
   }
 };
@@ -165,6 +176,7 @@ export default {
     left: 0;
     right: 0;
     bottom: 49px;
+    overflow: hidden;
   }
 }
 </style>

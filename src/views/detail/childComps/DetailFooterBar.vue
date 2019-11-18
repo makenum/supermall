@@ -26,7 +26,6 @@ export default {
   name: "DetailFooterBar",
   methods: {
     addToCart() {
-      console.log("加入购物车");
       this.$emit("addCart");
     }
   }
@@ -34,9 +33,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .footer-bar {
-  // background: fade(@color-white, 90%);
-  background-color: #fff;
-  opacity: 0.95;
+  background-color: @color-white;
   height: 49px;
   position: fixed;
   left: 0;

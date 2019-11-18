@@ -34,9 +34,6 @@ export default {
       if (this.goodsItem.iid) {
         this.$router.push(`/detail/${this.goodsItem.iid}`);
       }
-      if (this.goodsItem.item_id) {
-        console.log("被点击了");
-      }
     },
     load() {
       this.$EventBus.$emit("imageLoad");
