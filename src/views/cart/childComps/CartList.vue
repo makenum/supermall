@@ -1,22 +1,33 @@
 <template>
   <div class="cart-list">
-    <cart-list-item v-for="(item, index) in list" :key="index" :item="item" />
+    <div class="cart-list__item" v-for="(item, index) in cartList" :key="index">
+      <check-button
+        :isChecked="item.checked"
+        @click.native="checkClick(index)"
+      />
+      <cart-list-content :item="item" />
+    </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
-import CartListItem from "./CartListItem.vue";
+import CheckButton from "@/components/checkButton/CheckButton.vue";
+import CartListContent from "./CartListContent.vue";
 
 export default {
   name: "CartList",
   components: {
-    CartListItem
+    CartListContent,
+    CheckButton
   },
   computed: {
-    ...mapGetters({
-      list: "cartList"
-    })
+    ...mapGetters(["cartList"])
+  },
+  methods: {
+    checkClick(index) {
+      this.cartList[index].checked = !this.cartList[index].checked;
+    }
   }
 };
 </script>
@@ -24,5 +35,12 @@ export default {
 .cart-list {
   padding-left: 10px;
   padding-right: 10px;
+}
+.cart-list__item {
+  display: flex;
+  align-items: center;
+  .cart-list-content {
+    flex: 1;
+  }
 }
 </style>

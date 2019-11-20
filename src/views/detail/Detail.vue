@@ -151,7 +151,7 @@ export default {
       product.image = this.topImages[0];
       product.title = this.baseInfo.title;
       product.desc = this.baseInfo.desc;
-      product.realPrice = this.baseInfo.realPrice;
+      product.price = this.baseInfo.realPrice;
       product.iid = this.iid;
       // 将商品添加到购物车
       this.$store.dispatch("addCart", product);

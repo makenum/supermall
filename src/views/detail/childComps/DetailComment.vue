@@ -12,7 +12,7 @@
       <div class="info-detail">
         <p>{{ commentInfo.content }}</p>
         <div class="info-other">
-          <span class="date">{{ commentInfo.created | showDate }}</span>
+          <span class="date">{{ commentInfo.created | displayDate }}</span>
           <span>{{ commentInfo.style }}</span>
         </div>
         <div class="info-imgs" v-if="commentInfo.images">
@@ -32,7 +32,6 @@
 </template>
 
 <script>
-import { formatDate } from "@/common/utils";
 export default {
   name: "DetailComment",
   props: {
@@ -41,29 +40,6 @@ export default {
       default() {
         return {};
       }
-    }
-  },
-  filters: {
-    showDate(value) {
-      // 将时间戳转为Date对象
-      const date = new Date(value * 1000); //如果date为13位不需要乘1000
-      // 将date进行格式化
-      return formatDate(date, "yyyy-MM-dd hh:mm:ss");
-    },
-    _formatDate(value) {
-      // 将时间戳转为Date对象
-      const date = new Date(value * 1000);
-      // 将date进行格式化
-      let year = date.getFullYear();
-      let month = date.getMonth() + 1;
-      let day = date.getDate();
-      if (month < 10) {
-        month = `0${month}`;
-      }
-      if (day < 10) {
-        day = `0${day}`;
-      }
-      return `${year}-${month}-${day}`;
     }
   }
 };

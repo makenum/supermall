@@ -5,16 +5,10 @@
         购物车<span>({{ length }})</span>
       </h3>
     </nav-bar>
-    <scroll
-      ref="scroll"
-      class="wrapper"
-      :probeType="probeType"
-      :listenScroll="listenScroll"
-      v-if="length"
-    >
+    <scroll ref="scroll" class="wrapper" :probeType="probeType" v-if="length">
       <cart-list />
-      <cart-footer-bar />
     </scroll>
+    <cart-footer-bar />
   </div>
 </template>
 
@@ -35,7 +29,6 @@ export default {
   data() {
     return {
       cart: [],
-      listenScroll: true,
       probeType: 3
     };
   },

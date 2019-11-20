@@ -8,12 +8,6 @@ const mutations = {
   },
   AddCounter(state, payload) {
     payload.count++;
-  },
-  SingleChecked(state, payload) {
-    console.log(payload);
-  },
-  AllChecked(state, payload) {
-    console.log(payload);
   }
 };
 
@@ -28,13 +22,6 @@ const actions = {
       payload.checked = true;
       commit("AddCart", payload);
     }
-  },
-  singleChecked({ commit, state }, payload) {
-    let checkProduct = state.cart.find(item => item.iid === payload.iid);
-    commit("SingleChecked", checkProduct);
-  },
-  allChecked({ commit }, payload) {
-    commit("AllChecked", payload);
   }
 };
 const getters = {

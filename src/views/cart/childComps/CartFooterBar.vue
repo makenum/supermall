@@ -1,11 +1,13 @@
 <template>
-  <div class="cart-footer-bar">
-    <div @click="checkButtonClick" class="check-button-group">
-      <check-button :isChecked="isChecked" />
+  <div class="cart-footer-bar" v-if="cartListLength">
+    <div @click="checkAll" class="check-button-group">
+      <check-button :isChecked="isAllChecked" />
       <span class="desc">全选</span>
     </div>
-    <div class="total">合计:</div>
-    <button class="settlement">去结算({{ length }})</button>
+    <div class="total">合计:{{ totalPrice | formatPrice }}</div>
+    <button class="settlement" @click="settlement" :disabled="!checkLength">
+      去结算<span v-if="checkLength">({{ checkLength }})</span>
+    </button>
   </div>
 </template>
 
@@ -17,24 +19,52 @@ export default {
   components: {
     CheckButton
   },
-  data() {
-    return {
-      isChecked: false
-    };
-  },
   computed: {
-    ...mapGetters({
-      length: "cartListLength",
-      list: "cartList"
-    })
+    ...mapGetters(["cartListLength", "cartList"]),
+    totalPrice() {
+      return this.cartList
+        .filter(item => {
+          return item.checked;
+        })
+        .reduce((accumulator, currentValue) => {
+          return accumulator + currentValue.price * currentValue.count;
+        }, 0);
+    },
+    checkLength() {
+      return this.cartList.filter(item => item.checked).length;
+    },
+    isAllChecked() {
+      // 判断是否有数据
+      if (this.cartList.length === 0) {
+        return false;
+      }
+      // 过滤方法
+      // return this.cartList.filter(item => !item.checked).length ? false : true;
+
+      // 遍历方法
+      // for (const item of this.cartList) {
+      //   if (!item.checked) {
+      //     return false;
+      //   }
+      // }
+      // return true;
+
+      // 查找方法
+      return this.cartList.find(item => !item.checked) ? false : true;
+    }
   },
   methods: {
-    checkButtonClick() {
-      this.isChecked = !this.isChecked;
-      for (let index = 0; index < this.list.length; index++) {
-        this.list[index].checked = true;
+    checkAll() {
+      // 遍历两次分别赋值
+      if (this.isAllChecked) {
+        this.cartList.forEach(item => (item.checked = false));
+      } else {
+        this.cartList.forEach(item => (item.checked = true));
       }
-      this.$store.dispatch("AllChecked", this.list);
+    },
+    // 去结算
+    settlement() {
+      console.log(`合计:${this.totalPrice}元`);
     }
   }
 };
@@ -67,8 +97,12 @@ export default {
     color: @color-white;
     background: @color-primary;
     line-height: 40px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 100px;
+    &:disabled {
+      opacity: 0.5;
+    }
   }
 }
 </style>
