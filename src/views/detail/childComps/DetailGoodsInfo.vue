@@ -10,7 +10,7 @@
       <img
         v-for="(item, index) in detailInfo.detailImage[0].list"
         :key="index"
-        :src="item"
+        v-lazy="item"
         @load="imageLoad"
       />
     </div>

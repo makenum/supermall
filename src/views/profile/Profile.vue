@@ -1,8 +1,12 @@
 <template>
-  <div>Profile</div>
+  <div class="profile">Profile</div>
 </template>
 
 <script>
 export default {};
 </script>
-<style></style>
+<style lang="less">
+.profile {
+  height: 100vh;
+}
+</style>

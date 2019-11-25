@@ -64,7 +64,7 @@ export default {
     },
     // 去结算
     settlement() {
-      console.log(`合计:${this.totalPrice}元`);
+      this.$toast(`合计: ￥${parseFloat(this.totalPrice).toFixed(2)} 元`);
     }
   }
 };
@@ -100,6 +100,7 @@ export default {
     padding-left: 10px;
     padding-right: 10px;
     width: 100px;
+    font-size: 15px;
     &:disabled {
       opacity: 0.5;
     }

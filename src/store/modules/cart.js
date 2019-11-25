@@ -13,15 +13,20 @@ const mutations = {
 
 const actions = {
   addCart({ commit, state }, payload) {
-    // 查找之前数组中是否有该商品
-    let oldProduct = state.cart.find(item => item.iid === payload.iid);
-    if (oldProduct) {
-      commit("AddCounter", oldProduct);
-    } else {
-      payload.count = 1;
-      payload.checked = true;
-      commit("AddCart", payload);
-    }
+    // eslint-disable-next-line no-unused-vars
+    return new Promise((resolve, reject) => {
+      // 查找之前数组中是否有该商品
+      let oldProduct = state.cart.find(item => item.iid === payload.iid);
+      if (oldProduct) {
+        commit("AddCounter", oldProduct);
+        resolve("当前商品的数量+1");
+      } else {
+        payload.count = 1;
+        payload.checked = true;
+        commit("AddCart", payload);
+        resolve("添加了新商品");
+      }
+    });
   }
 };
 const getters = {

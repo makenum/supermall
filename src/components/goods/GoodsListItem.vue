@@ -1,7 +1,7 @@
 <template>
   <div class="goods-item" @click="itemClick">
     <div class="img">
-      <img :src="showImage" @load="load" />
+      <img v-lazy="showImage" @load="load" />
     </div>
     <div class="goods-info">
       <p>{{ goodsItem.title }}</p>
@@ -56,23 +56,6 @@ export default {
       width: 100%;
       height: 100%;
       object-fit: cover;
-    }
-    img[lazy="loaded"] {
-      border-radius: 5px;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    img[lazy="loading"] {
-      width: 44px;
-      height: 44px;
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
     }
   }
 }

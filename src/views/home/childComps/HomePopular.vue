@@ -9,7 +9,7 @@
         :key="index"
       >
         <div class="thumb">
-          <img :src="item.show.img" :alt="item.title" />
+          <img v-lazy="item.show.img" :alt="item.title" />
         </div>
         <p class="text">{{ item.title }}</p>
       </a>

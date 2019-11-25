@@ -2,9 +2,13 @@
   <div class="cart">
     <nav-bar type="primary">
       <h3 slot="center" class="title">
-        购物车<span>({{ length }})</span>
+        购物车<span v-if="length">({{ length }})</span>
       </h3>
     </nav-bar>
+    <div class="cart-tips" v-if="!length">
+      <p>您的购物车还是空的</p>
+      <button type="button" @click="goHome">去逛逛</button>
+    </div>
     <scroll ref="scroll" class="wrapper" :probeType="probeType" v-if="length">
       <cart-list />
     </scroll>
@@ -39,13 +43,23 @@ export default {
       length: "cartListLength"
     })
   },
-  mounted() {
+  created() {
     this.cart = this.list;
+  },
+  methods: {
+    goHome() {
+      this.$router.push("/home");
+    }
   }
 };
 </script>
 <style lang="less" scoped>
 .cart {
+  height: 100vh;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 0;
   .navbar {
     position: relative;
     z-index: 10;
@@ -57,6 +71,27 @@ export default {
     right: 0;
     bottom: 89px;
     overflow: hidden;
+  }
+  .cart-tips {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 89px);
+    p {
+      font-size: 14px;
+      color: @color-med-gray;
+      margin-bottom: 10px;
+    }
+    button {
+      border: 1px solid @color-primary;
+      color: @color-primary;
+      height: 24px;
+      padding-left: 15px;
+      padding-right: 15px;
+      border-radius: 15px;
+      background-color: transparent;
+    }
   }
 }
 </style>

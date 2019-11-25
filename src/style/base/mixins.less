@@ -3,22 +3,6 @@
   -webkit-tap-highlight-color: @color;
 }
 
-// 文字溢出
-.ellipsis() {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  word-wrap: normal;
-}
-
-.ellipsisLn(@line) {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: @line;
-}
-
 // 表单提示文字
 .placeholder(@color: #999999) {
   &::-webkit-input-placeholder {

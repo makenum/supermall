@@ -45,7 +45,6 @@ import {
 import NavBar from "@/components/navbar/NavBar.vue";
 import TabControl from "@/components/tabControl/TabControl.vue";
 import GoodsList from "@/components/goods/GoodsList.vue";
-
 import Scroll from "@/components/scroll/Scroll.vue";
 
 import HomeSwiper from "./childComps/HomeSwiper.vue";

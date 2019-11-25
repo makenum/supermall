@@ -1,7 +1,7 @@
 import { formatDate } from "@/common/utils";
 // 格式化价格
 export const formatPrice = value => {
-  return `￥${parseInt(value).toFixed(2)}`;
+  return `￥${parseFloat(value).toFixed(2)}`;
 };
 // 格式化日期
 export const displayDate = value => {

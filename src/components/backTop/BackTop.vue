@@ -1,18 +1,14 @@
 <template>
-  <Fade>
+  <transition name="fade">
     <div class="back-top">
       <img src="~@/assets/img/top.png" alt="返回顶部" />
     </div>
-  </Fade>
+  </transition>
 </template>
 
 <script>
-import Fade from "@/components/animation/Fade.vue";
 export default {
-  name: "BackTop",
-  components: {
-    Fade
-  }
+  name: "BackTop"
 };
 </script>
 <style lang="less">

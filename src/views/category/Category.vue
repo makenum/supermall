@@ -1,8 +1,12 @@
 <template>
-  <div>Category</div>
+  <div class="category">Category</div>
 </template>
 
 <script>
 export default {};
 </script>
-<style></style>
+<style lang="less">
+.category {
+  height: 100vh;
+}
+</style>

@@ -1,32 +1,35 @@
 <template>
-  <div class="detail">
-    <detail-nav-bar @tabClick="onTabClick" ref="navbar" />
-    <scroll
-      ref="scroll"
-      class="wrapper"
-      @scroll="onScroll"
-      :probeType="probeType"
-      :listenScroll="listenScroll"
-    >
-      <detail-swiper :topImages="topImages" />
-      <detail-base-info :baseInfo="baseInfo" />
-      <detail-shop-info :shop="shop" />
-      <detail-goods-info
-        :detailInfo="detailInfo"
-        @imageLoaded="imageLoaded"
-        ref="goods"
-      />
-      <detail-param-info :paramInfo="paramInfo" ref="param" />
-      <detail-comment :commentInfo="commentInfo" ref="comment" />
-      <goods-list :goods="recommend" ref="recommend" />
-    </scroll>
-    <detail-footer-bar @addCart="addCart"></detail-footer-bar>
-    <!-- 组件必须带事件修饰符 -->
-    <back-top v-if="isShowBackTop" @click.native="backTopClick"></back-top>
-  </div>
+  <transition name="slide-left">
+    <div class="detail">
+      <detail-nav-bar @tabClick="onTabClick" ref="navbar" />
+      <scroll
+        ref="scroll"
+        class="wrapper"
+        @scroll="onScroll"
+        :probeType="probeType"
+        :listenScroll="listenScroll"
+      >
+        <detail-swiper :topImages="topImages" />
+        <detail-base-info :baseInfo="baseInfo" />
+        <detail-shop-info :shop="shop" />
+        <detail-goods-info
+          :detailInfo="detailInfo"
+          @imageLoaded="imageLoaded"
+          ref="goods"
+        />
+        <detail-param-info :paramInfo="paramInfo" ref="param" />
+        <detail-comment :commentInfo="commentInfo" ref="comment" />
+        <goods-list :goods="recommend" ref="recommend" />
+      </scroll>
+      <detail-footer-bar @addCart="addToCart"></detail-footer-bar>
+      <!-- 组件必须带事件修饰符 -->
+      <back-top v-if="isShowBackTop" @click.native="backTopClick"></back-top>
+    </div>
+  </transition>
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import { imageLoadListenerMixin, backTopMixin } from "@/common/mixins";
 import {
   getDetail,
@@ -90,6 +93,7 @@ export default {
     this.$EventBus.$off("imageLoad", this.imageLoadListner);
   },
   methods: {
+    ...mapActions(["addCart"]),
     _getDetail() {
       getDetail(this.iid).then(res => {
         console.log(res);
@@ -145,7 +149,7 @@ export default {
         }
       }
     },
-    addCart() {
+    addToCart() {
       //获取购物车需要展示的信息
       const product = {};
       product.image = this.topImages[0];
@@ -154,7 +158,9 @@ export default {
       product.price = this.baseInfo.realPrice;
       product.iid = this.iid;
       // 将商品添加到购物车
-      this.$store.dispatch("addCart", product);
+      this.addCart(product).then(res => {
+        this.$toast(res);
+      });
     }
   }
 };

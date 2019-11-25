@@ -7,7 +7,7 @@
       :key="index"
     >
       <div class="thumb">
-        <img :src="item.image" alt="item.title" />
+        <img v-lazy="item.image" alt="item.title" />
       </div>
       <p class="title">{{ item.title }}</p>
     </a>
@@ -46,6 +46,7 @@ export default {
       img {
         width: 100%;
         height: 100%;
+        border-radius: 50%;
         object-fit: cover;
       }
     }
