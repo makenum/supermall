@@ -1,31 +1,29 @@
 <template>
-  <transition name="slide-left">
-    <div class="detail">
-      <detail-nav-bar @tabClick="onTabClick" ref="navbar" />
-      <scroll
-        ref="scroll"
-        class="wrapper"
-        @scroll="onScroll"
-        :probeType="probeType"
-        :listenScroll="listenScroll"
-      >
-        <detail-swiper :topImages="topImages" />
-        <detail-base-info :baseInfo="baseInfo" />
-        <detail-shop-info :shop="shop" />
-        <detail-goods-info
-          :detailInfo="detailInfo"
-          @imageLoaded="imageLoaded"
-          ref="goods"
-        />
-        <detail-param-info :paramInfo="paramInfo" ref="param" />
-        <detail-comment :commentInfo="commentInfo" ref="comment" />
-        <goods-list :goods="recommend" ref="recommend" />
-      </scroll>
-      <detail-footer-bar @addCart="addToCart"></detail-footer-bar>
-      <!-- 组件必须带事件修饰符 -->
-      <back-top v-if="isShowBackTop" @click.native="backTopClick"></back-top>
-    </div>
-  </transition>
+  <div class="detail">
+    <detail-nav-bar @tabClick="onTabClick" ref="navbar" />
+    <scroll
+      ref="scroll"
+      class="wrapper"
+      @scroll="onScroll"
+      :probeType="probeType"
+      :listenScroll="listenScroll"
+    >
+      <detail-swiper :topImages="topImages" />
+      <detail-base-info :baseInfo="baseInfo" />
+      <detail-shop-info :shop="shop" />
+      <detail-goods-info
+        :detailInfo="detailInfo"
+        @imageLoaded="imageLoaded"
+        ref="goods"
+      />
+      <detail-param-info :paramInfo="paramInfo" ref="param" />
+      <detail-comment :commentInfo="commentInfo" ref="comment" />
+      <goods-list :goods="recommend" ref="recommend" />
+    </scroll>
+    <detail-footer-bar @addCart="addToCart"></detail-footer-bar>
+    <!-- 组件必须带事件修饰符 -->
+    <back-top v-if="isShowBackTop" @click.native="backTopClick"></back-top>
+  </div>
 </template>
 
 <script>
@@ -96,7 +94,6 @@ export default {
     ...mapActions(["addCart"]),
     _getDetail() {
       getDetail(this.iid).then(res => {
-        console.log(res);
         const data = res.result;
         this.topImages = data.itemInfo.topImages;
         this.baseInfo = new Goods(
@@ -132,7 +129,6 @@ export default {
       this.calcScrollY.push(this.$refs.recommend.$el.offsetTop);
       // 添加一个最大数字
       this.calcScrollY.push(Number.MAX_VALUE);
-      console.log(this.calcScrollY);
     },
     onScroll(pos) {
       let posY = Math.abs(pos.y);

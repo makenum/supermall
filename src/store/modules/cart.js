@@ -1,12 +1,13 @@
+import { ADD_TO_CART, ADD_COUNTER } from "../mutation-type";
 const state = {
   cart: []
 };
 
 const mutations = {
-  AddCart(state, payload) {
+  [ADD_TO_CART](state, payload) {
     state.cart.push(payload);
   },
-  AddCounter(state, payload) {
+  [ADD_COUNTER](state, payload) {
     payload.count++;
   }
 };
@@ -18,12 +19,12 @@ const actions = {
       // 查找之前数组中是否有该商品
       let oldProduct = state.cart.find(item => item.iid === payload.iid);
       if (oldProduct) {
-        commit("AddCounter", oldProduct);
+        commit(ADD_COUNTER, oldProduct);
         resolve("当前商品的数量+1");
       } else {
         payload.count = 1;
         payload.checked = true;
-        commit("AddCart", payload);
+        commit(ADD_TO_CART, payload);
         resolve("添加了新商品");
       }
     });

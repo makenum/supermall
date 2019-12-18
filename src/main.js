@@ -35,6 +35,7 @@ Vue.use(Toast, {
 // lazyload
 import VueLazyload from "vue-lazyload";
 Vue.use(VueLazyload, {
+  preLoad: 1,
   loading: require("./assets/img/placeholder.png")
 });
 

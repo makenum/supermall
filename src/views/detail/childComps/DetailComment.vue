@@ -108,10 +108,12 @@ export default {
     }
   }
   .info-imgs {
+    display: flex;
     margin-top: 10px;
     img {
       width: 70px;
       height: 70px;
+      object-fit: cover;
       margin-right: 5px;
     }
   }
