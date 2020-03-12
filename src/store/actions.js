@@ -1,19 +1,5 @@
-import { ADD_TO_CART, ADD_COUNTER } from "../mutation-type";
-const state = {
-  cart: []
-};
-// mutations是同步
-const mutations = {
-  [ADD_TO_CART](state, payload) {
-    state.cart.push(payload);
-  },
-  [ADD_COUNTER](state, payload) {
-    payload.count++;
-  }
-};
-
-// actions可同步也可异步
-const actions = {
+import { ADD_TO_CART, ADD_COUNTER } from "./mutation-type";
+export default {
   addCart({ commit, state }, payload) {
     // eslint-disable-next-line no-unused-vars
     return new Promise((resolve, reject) => {
@@ -30,18 +16,4 @@ const actions = {
       }
     });
   }
-};
-const getters = {
-  cartList(state) {
-    return state.cart;
-  },
-  cartListLength(state) {
-    return state.cart.length;
-  }
-};
-export default {
-  state,
-  mutations,
-  actions,
-  getters
 };

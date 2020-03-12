@@ -1,8 +1,16 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
+// 使用箭头函数import引入,可以实现路由懒加载
+const Home = () => import("@/views/home/Home");
+const Category = () => import("@/views/category/Category");
+const Cart = () => import("@/views/cart/Cart.vue");
+const Profile = () => import("@/views/profile/Profile.vue");
+const Detail = () => import("@/views/detail/Detail.vue");
+
 Vue.use(VueRouter);
 
+// 定义路由
 const routes = [
   {
     path: "/",
@@ -11,32 +19,30 @@ const routes = [
   {
     path: "/home",
     name: "home",
-    component: () => import(/* webpackChunkName: "home" */ "@/views/home/Home")
+    component: Home
   },
   {
     path: "/category",
     name: "category",
-    component: () =>
-      import(/* webpackChunkName: "category" */ "@/views/category/Category")
+    component: Category
   },
   {
     path: "/cart",
     name: "cart",
-    component: () =>
-      import(/* webpackChunkName: "cart" */ "@/views/cart/Cart.vue")
+    component: Cart
   },
   {
     path: "/profile",
     name: "profile",
-    component: () =>
-      import(/* webpackChunkName: "profile" */ "@/views/profile/Profile.vue")
+    component: Profile
   },
   {
     path: "/detail/:iid",
     name: "detail",
-    component: () =>
-      import(/* webpackChunkName: "detail" */ "@/views/detail/Detail.vue"),
-    meta: { hideTabBar: true }
+    component: Detail,
+    meta: {
+      hideTabBar: true
+    }
   }
 ];
 

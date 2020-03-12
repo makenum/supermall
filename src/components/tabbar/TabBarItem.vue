@@ -40,6 +40,7 @@ export default {
   [class^="icon-"],
   [class*=" icon-"] {
     font-size: 24px;
+    color: @color-med-gray;
   }
   &.active {
     color: @color-primary;

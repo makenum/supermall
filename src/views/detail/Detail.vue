@@ -138,7 +138,8 @@ export default {
       for (let i = 0; i < length; i++) {
         if (
           this.currentIndex !== i &&
-          (posY >= this.calcScrollY[i] && posY < this.calcScrollY[i + 1])
+          posY >= this.calcScrollY[i] &&
+          posY < this.calcScrollY[i + 1]
         ) {
           this.currentIndex = i;
           this.$refs.navbar.currentIndex = this.currentIndex;
